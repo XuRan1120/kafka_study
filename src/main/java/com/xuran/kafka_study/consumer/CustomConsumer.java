@@ -33,6 +33,10 @@ public class CustomConsumer {
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println("topic = " + record.topic() +"offset = " + record.offset() + " value = "+record.value());
             }
+            //同步提交offset、失败就重新提交，一直到提交成功。失败重试机制
+            consumer.commitSync();
+            //异步提交offset、提交一次，不管成功失败
+            consumer.commitAsync();
         }
 
         //没有关闭
