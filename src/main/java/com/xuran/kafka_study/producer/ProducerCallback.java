@@ -5,7 +5,12 @@ import java.util.Properties;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-
+/**
+ * @Author XuRan
+ * @Date 2022/3/15 9:56
+ * @Version 1.0
+ * @Description  Producer异步发送 回调函数
+ */
 public class ProducerCallback {
 
     /*

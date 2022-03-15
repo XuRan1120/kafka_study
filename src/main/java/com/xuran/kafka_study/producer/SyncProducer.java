@@ -3,18 +3,20 @@ package com.xuran.kafka_study.producer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+
 /**
  * @Author XuRan
  * @Date 2022/3/15 9:56
  * @Version 1.0
- * @Description  Producer异步发送
+ * @Description  Producer同步发送
  */
-public class CustomProducer {
-    public static void main(String[] args) {
-
+public class SyncProducer {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         //因为 生产者对象需要Properties 参数(里面放kafka的参数)
         Properties props = new Properties();
@@ -30,8 +32,10 @@ public class CustomProducer {
 
         //调用send 方法(每次发一条消息，所以死循环)
         for(int i=0;i<1000;i++){
-            producer.send(new ProducerRecord<String, String>("first",i+"","message-"+i));
+            RecordMetadata metadata = producer.send(new ProducerRecord<String, String>("first", i + "", "message-" + i)).get();
+            System.out.println("offset" + metadata.offset());
         }
+
 
         //关闭生产者
         producer.close();
