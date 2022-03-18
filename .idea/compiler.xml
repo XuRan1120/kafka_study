@@ -9,5 +9,6 @@
         <module name="kafka_study" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="8" />
   </component>
 </project>
